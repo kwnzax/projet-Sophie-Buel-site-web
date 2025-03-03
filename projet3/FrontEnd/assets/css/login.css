@@ -1,0 +1,46 @@
+section {
+    margin-top: 150px;
+    margin-bottom: 270px;
+}
+
+.login a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.login-header{
+    font-family: 'Syne';
+	font-size: 30px;
+	font-weight: 500;
+    color: #1D6154;
+    margin-bottom: 20px;
+}
+
+label {
+    margin: 2em 0 1em 0;
+}
+
+input {
+    width: 400px;
+    height: 50px;
+    border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.forgot{
+    text-align: center;
+}
