@@ -9,44 +9,27 @@ const password = document.getElementById('pw');
 form.addEventListener('submit', event => {
     event.preventDefault()
 
-
     const object = {
         email: email.value,
         password: password.value
     }
 
-
-    console.log(object)
-
-    fetch('http://localhost:5678/api/user/login', {
+    fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
         headers: { "Content-Type": "application/JSON" },
-        body: object
+        body: JSON.stringify(object)
     }).then(response => {
-        /*
-    
-        ... tout un tas d'information de l'api pas forcément utiles
-        */
-        // On vérifie si l'api retourne un OK (donc un status code 200)
         if (response.ok) {
             return response.json();
+        }else{
+            alert('Erreur de connexion mot de passe ou email incorrect');
         }
     }).then(data => {
-
-
-        // Sauvegarder le token dans le localstorage
-
-        // Une fois le token sauvegarder on redirige l'utilisateur sur la page index.html
-
-        console.log(data);
-        if (data.error) {
-            alert("Email ou mot de passe inccorrect"); 
-          } else {
-            window.open(
-              "index.html"
-            ); 
-          }
-    })
+        // Sauvegarder le token
+        localStorage.setItem('token', data.token);
+        window.location.href = './index.html';
     }).catch(err => {
-        console.error(err);
+        console.error('Error:', err);
+    });
+
 })
