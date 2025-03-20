@@ -196,6 +196,30 @@ footer nav ul {
 	margin: 2em
 }
 
-.edit-mode {
+.edit-mode, .logoutBtn{
 	display: none;
+}
+
+.filters{
+	display: flex;
+	justify-content: center;
+	margin: 40px;
+	gap: 15px;
+	
+}
+
+.filters button{
+	font-family: 'Syne';
+	font-size: 1.2em;
+	font-weight: 500;
+	color: #1D6154;
+	border: solid 1px #1D6154;
+	border-radius: 25px;
+	padding: 10px 15px;
+	background-color: white;
+}
+
+.filters button:hover{
+	background-color: #1D6154;
+	color: white;
 }
