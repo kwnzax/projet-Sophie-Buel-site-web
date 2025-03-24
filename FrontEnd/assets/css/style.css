@@ -198,10 +198,27 @@ footer nav ul {
 
 #edit{ 
 	display: none;
+	padding-top: 10px;
+	
 }
 
-.editMode {
+.portfolioHeader {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+}
+
+#editMode {
 	display: none;
+	color: white;
+	background-color: black;
+	padding: 20px;
+	font-family: 'Work Sans';	
+}
+
+#editMode i{
+	justify-content: center;
+	align-items: center;
 }
 
 .modalBackground{
@@ -216,15 +233,11 @@ footer nav ul {
 	
 }
 
-.filters{
-
-}
-
 #filters{
 	display: flex;
 }
 
-.filters option {
+.filters button {
 	font-family: 'Syne';
 	font-size: 1.2em;
 	font-weight: 500;
@@ -235,7 +248,7 @@ footer nav ul {
 	background-color: white;
 }
 
-.filters option:hover{
+.filters button:hover{
 	background-color: #1D6154;
 	color: white;
 }

@@ -5,6 +5,7 @@ const login = document.getElementById('login');
 const logout = document.getElementById('logout');
 const gallery  = document.getElementById('gallery');
 const edit = document.getElementById('edit')
+const editMode = document.getElementById('editMode')
 
 logout.addEventListener('click', () => {
     localStorage.removeItem('token');
@@ -15,7 +16,8 @@ logout.addEventListener('click', () => {
 if (token) {
     login.style.display = 'none';
     logout.style.display = 'block';
-    edit.style.display = 'flex'
+    edit.style.display = 'block';
+    editMode.style.display = 'block'
 
 } else {
     logout.style.display = 'none';
@@ -33,7 +35,7 @@ function getFilters() {
             categories.forEach(category => {
                 const id = category.id;
                 const name = category.name
-                selectCategory.innerHTML += `<option value="${id}">${name}</option>`
+                selectCategory.innerHTML += `<button value="${id}">${name}</button>`
             })
         })
 }
@@ -69,8 +71,20 @@ function getWorks() {
         })
 }
 
+/*let btnFilter = document.querySelectorAll('.filters button')
+console.log(btnFilter)
+
+btnFilter.addEventListener('click', )
+function filters() {
+
+}*/
+
+
+const modal = document.querySelector('.modalBackground')
+
 edit.addEventListener('click', () => {
-     
+
+     modal.style.display = 'flex';
 })
 
 

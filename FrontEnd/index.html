@@ -16,10 +16,10 @@
 </head>
 
 <body>
-	<header>
-		<div class="editMode">
+	<div id="editMode">
 			<i class="fa-solid fa-pen-to-square"> Mode édition</i>
-		</div>
+	</div>
+	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
@@ -48,7 +48,7 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<div>
+			<div class="portfolioHeader">
 				<h2>Mes Projets</h2>
 				<a id="edit" href=""><i class="fa-solid fa-pen-to-square"> modifier</i></a>
 			</div>
@@ -58,10 +58,8 @@
 					<input type="file" accept="" value="Ajouter une photo">
 				</div>
 			</div>
-			<div class="filters">
-				<select id="filters">
-					<option value="0">Tous</option>
-				</select>
+			<div class="filters" id="filters">
+				<button value="0">Tous</button>
 			</div>
 			<div id="gallery">
 			</div>
