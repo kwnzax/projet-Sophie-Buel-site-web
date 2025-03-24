@@ -3,7 +3,6 @@ const email = document.getElementById('email');
 const password = document.getElementById('pw');
 
 
-// Ne JAMAIS faire confiance au front, donc vérifier le type email avec un regex, et vérifier le password pour le projet juste vérifier que le champs n'est pas vide
 
 
 form.addEventListener('submit', event => {
@@ -25,7 +24,6 @@ form.addEventListener('submit', event => {
             alert('Erreur de connexion mot de passe ou email incorrect');
         }
     }).then(data => {
-        // Sauvegarder le token
         localStorage.setItem('token', data.token);
         window.location.href = './index.html';
     }).catch(err => {
@@ -33,3 +31,5 @@ form.addEventListener('submit', event => {
     });
 
 })
+
+

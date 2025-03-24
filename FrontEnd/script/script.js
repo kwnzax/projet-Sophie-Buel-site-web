@@ -1,56 +1,82 @@
 
 const token = localStorage.getItem('token');
-console.log(token);
+const selectCategory = document.getElementById('filters');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+const gallery  = document.getElementById('gallery');
+const edit = document.getElementById('edit')
 
-// Si j'ai un token, je suis authentifié donc j'affiche le mode édition et le logout
+logout.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+})
 
-// Dans le cas contraire j'affiche le bouton login et je cache le logout et le mode édition
 
+if (token) {
+    login.style.display = 'none';
+    logout.style.display = 'block';
+    edit.style.display = 'flex'
 
-function getFilters(){
-    
-    fetch('http://localhost:5678/api/categories')
-    
-    .then(response => {
-        return response.json()
-    }).then(categories => {
-        console.log(categories)
-        for(let i = 0; i < categories.length; i++) {
-
-            const sectionFilter = document.querySelector(".filters");
-            const btnFilter = document.createElement('button');
-            btnFilter.textContent = categories.name;
-
-            sectionFilter.appendChild(btnFilter)
-        }
-    })
+} else {
+    logout.style.display = 'none';
+    login.style.display = 'block';
 }
 
 
-getFilters();
+
+function getFilters() {
+    fetch('http://localhost:5678/api/categories')
+        .then(response => {
+            return response.json()
+        }).then(categories => {
+
+            categories.forEach(category => {
+                const id = category.id;
+                const name = category.name
+                selectCategory.innerHTML += `<option value="${id}">${name}</option>`
+            })
+        })
+}
 
 
-function genererProjets(){
+function getWorks() {
     fetch('http://localhost:5678/api/works')
 
-    .then(response => {
-        return response.json()
-    }).then(projets => {
-        for (let i = 0; i < projets.length; i++) {
+        .then(response => {
+            return response.json()
+        }).then(works => {
 
-        const article = projets[i];
-        const sectionProjets = document.querySelector(".gallery");
-        const projetElement = document.createElement("figure"); 
-        const imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
-        const captionElement = document.createElement("figcaption");
-        captionElement.innerText = article.title;
+            // Vider le dom 
+            gallery.innerHTML = '';
 
-        sectionProjets.appendChild(projetElement);
-        projetElement.appendChild(imageElement);
-        projetElement.appendChild(captionElement);
-        }
-    })
+            for (let i = 0; i < works.length; i++) {
+
+                const article = works[i];
+                const sectionWorks = document.querySelector("#gallery");
+                const worksElement = document.createElement("figure");
+                const imageElement = document.createElement("img");
+                imageElement.src = article.imageUrl;
+                const captionElement = document.createElement("figcaption");
+                captionElement.innerText = article.title;
+
+                sectionWorks.appendChild(worksElement);
+                worksElement.appendChild(imageElement);
+                worksElement.appendChild(captionElement);
+            }
+
+            getWorksModal(works)
+
+        })
 }
 
-genererProjets();
+edit.addEventListener('click', () => {
+     
+})
+
+
+function getWorksModal(works){
+    console.log(works)
+}
+
+getFilters();
+getWorks();
