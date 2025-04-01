@@ -17,7 +17,7 @@
 
 <body>
 	<div id="editMode">
-			<i class="fa-solid fa-pen-to-square"> Mode édition</i>
+		<i class="fa-solid fa-pen-to-square"> Mode édition</i>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -48,16 +48,17 @@
 			</article>
 		</section>
 		<section id="portfolio">
+			<div class="modal">
+				<button><i class="fa-solid fa-xmark"></i></button>
+				<h2>Galerie photo</h2>
+				<div class='modalWorks'></div>
+				<button> Ajouter une photo </button>
+			</div>
 			<div class="portfolioHeader">
 				<h2>Mes Projets</h2>
 				<a id="edit" href="#"><i class="fa-solid fa-pen-to-square"> modifier</i></a>
 			</div>
-			<div class="modalBackground">
-				<div class="modal">
-					<div>Galerie photo</div>
-					<input type="file" accept="" value="Ajouter une photo">
-				</div>
-			</div>
+
 			<div class="filters" id="filters">
 				<button class="btn" value="0">Tous</button>
 			</div>
