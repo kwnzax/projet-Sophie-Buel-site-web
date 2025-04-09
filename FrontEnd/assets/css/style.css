@@ -183,7 +183,6 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 
 nav li {
@@ -261,7 +260,7 @@ a:hover {
 	flex-direction: column;
 }
 
-#contact input {
+#contact input  {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -316,29 +315,133 @@ footer nav ul {
 .modal {
 	display: none;
 	position: absolute;
-	left: 31%;
+	left: 25%;
 	flex-direction: column;
 	align-items: center;
-	height: 500px;
-	width: 500px;
-	background-color: beige;
-	padding: 40px;
+	width: 40%;
+	background-color: white;
+	margin: 0;
+	padding: 30px 50px;
 	border-radius: 15px;
 	z-index: 1;
-	/*
-	height: 100%;
-	width: 100%;
-	background-color: rgba(255, 255, 255, 0.5);*/
 }
 
+#background{
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin: 0;
+	max-width: 100%;
+	width: 100%;
+	height: 3000px;
+	background-color: rgba(52, 45, 45, 0.5);
+}
 
+.topModal{
+	display: flex;
+	gap: 500px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.modal h2 {
+	font-family: 'Work Sans';
+	color: black;
+	font-size: 26px;
+	font-weight: 400;
+}
+
+.modalWorks {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 25px 0px;
+	padding-bottom: 50px;
+	align-items: center;
+	border-bottom: 1px solid;
+	gap: 10px;
+}
+
+.trash{
+	position: absolute;
+	margin: 4px;
+	color: white;
+	background-color: black;
+	border: none;
+	border-radius: 5px;
+	padding: 3px 5px;
+}
+
+#close, #backBtn{
+	background-color: white;
+	border: none;
+}
+
+#addWorkBtn {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 1em;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	padding: 10px;
+	width: 230px;
+	text-align: center;
+	border: none;
+	border-radius: 60px;
+}
+
+.deleteWorkPage{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.addWorkPage{
+	display: none;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.addWorkPage input[type='text'] {
+	height: 50px;
+	width: 100%;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.addWorkPage select{
+	height: 50px;
+	width: 100%;
+	font-size: 1.2em;
+	border: none;
+}
+
+.addImg{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+	padding: 40px;
+	background-color: #E8F1F6;
+}
+
+.addImgForm{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
 
 .filters {
 	display: flex;
 	justify-content: center;
 	margin: 40px;
 	gap: 15px;
-
 }
 
 #filters {
@@ -363,10 +466,4 @@ footer nav ul {
 
 #logout {
 	display: none;
-}
-
-.modalWorks {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
 }

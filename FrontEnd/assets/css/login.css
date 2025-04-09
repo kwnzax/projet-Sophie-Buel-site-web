@@ -44,3 +44,7 @@ input {
 .forgot{
     text-align: center;
 }
+
+input[type="submit"] {
+    font-size: 1.1em;
+}

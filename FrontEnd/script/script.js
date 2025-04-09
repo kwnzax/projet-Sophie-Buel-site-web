@@ -1,3 +1,4 @@
+/*const { add } = require("lodash");*/
 
 const token = localStorage.getItem('token');
 const selectCategory = document.getElementById('filters');
@@ -9,7 +10,14 @@ const editMode = document.getElementById('editMode');
 const btnFilter = document.getElementsByClassName('btn');
 const worksModal = document.getElementById('worksModal');
 const modal = document.querySelector('.modal');
-const modalWorks = document.querySelector('.modalWorks')
+const modalWorks = document.querySelector('.modalWorks');
+const closeModal = document.getElementById('close');
+const backgroundModal = document.getElementById('background');
+const addWorkBtn = document.getElementById('addWorkBtn');
+const addWorkPage = document.querySelector('.addWorkPage');
+const deleteWorkPage = document.querySelector('.deleteWorkPage');
+const backBtn = document.getElementById('backBtn');
+const workCategory = document.getElementById('workCategory')
 
 
 logout.addEventListener('click', () => {
@@ -19,9 +27,6 @@ logout.addEventListener('click', () => {
 
 
 if (token) {
-    /*edit.forEach((element =>{
-        element.style.display = 'block'
-    }))*/
 
     login.style.display = 'none';
     logout.style.display = 'block';
@@ -51,12 +56,29 @@ function getFilters() {
                 btn.addEventListener('click', (e) => {
 
                     const categoryID = e.target.value;
-                    getWorks(categoryID)
+                    getWorks(categoryID);
+                    modalWorks.innerHTML = '';
                 })
             }
+
+            categories.forEach(categories => {
+                const option = document.createElement('option')
+                option.value = categories.id;
+                option.innerHTML = categories.name
+                workCategory.appendChild(option)
+            })
+
         })
 }
 
+
+function sendWork(){
+    // Récupérer la soumission sur le bouton valider
+    // Vérifier les infos (Présence d'une image, d'un titre, d'une catégorie et surtout le type de fichier et le poids)
+    // SI OK = Envoyer les informations en POST sur l'api
+    // OK = getWorks()
+    // KO = Retourne un message d'erreur
+}
 
 function getWorks(categoryID = '0') {
 
@@ -82,9 +104,11 @@ function getWorks(categoryID = '0') {
             works.forEach(work => {
                 const figure = document.createElement('figure');
                 const img = document.createElement('img');
+                figure.setAttribute("class", "miniWork")
                 img.setAttribute("src", work.imageUrl)
                 img.setAttribute("alt", work.title);
-                img.style.width = "100px"
+                img.style.width = "80px"
+
 
                 const button = document.createElement('button');
                 button.type = 'button'
@@ -112,11 +136,32 @@ function getWorks(categoryID = '0') {
 edit.addEventListener('click', (e) => {
     e.preventDefault();
     modal.style.display = 'flex';
+    backgroundModal.style.display = 'flex';
+    backBtn.style.display = 'none'
+})
+
+closeModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'none';
+    backgroundModal.style.display = 'none';
+})
+
+addWorkBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addWorkPage.style.display = 'flex';
+    deleteWorkPage.style.display = 'none';
+    backBtn.style.display = 'flex';
+})
+
+backBtn.addEventListener('click', () => {
+    addWorkPage.style.display = 'none';
+    deleteWorkPage.style.display = 'flex';
+    backBtn.style.display = 'none';
 })
 
 async function deleteWork(workId) {
 
-    if (confirm('Are you sure you want to delete')) {
+    if (confirm('Are you sure you want to delete ?')) {
         try {
 
             const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -142,6 +187,7 @@ async function deleteWork(workId) {
         console.log('Operation cancelled');
     }
 }
+
 
 getWorks();
 getFilters();
