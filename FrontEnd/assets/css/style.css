@@ -310,6 +310,7 @@ footer nav ul {
 	background-color: black;
 	padding: 20px;
 	font-family: 'Work Sans';
+	max-width: 100%;
 }
 
 .modal {
@@ -328,21 +329,22 @@ footer nav ul {
 
 #background{
 	display: none;
-	position: absolute;
-	right: 0px;
-	top: 0px;
+	position: fixed;
+	right: 0;
+	top: 0;
 	margin: 0;
 	max-width: 100%;
 	width: 100%;
-	height: 3000px;
+	height: 100%;
 	background-color: rgba(52, 45, 45, 0.5);
 }
 
 .topModal{
 	display: flex;
-	gap: 500px;
+	flex-direction: row-reverse;
 	align-items: center;
 	justify-content: space-between;
+	width: 100%;
 }
 
 .modal h2 {
@@ -355,9 +357,10 @@ footer nav ul {
 .modalWorks {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: left;
 	padding: 25px 0px;
 	padding-bottom: 50px;
+	margin: 0 35px;
 	align-items: center;
 	border-bottom: 1px solid;
 	gap: 10px;
@@ -378,7 +381,7 @@ footer nav ul {
 	border: none;
 }
 
-#addWorkBtn {
+#addWorkBtn, #sendBtn{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 1em;
@@ -395,13 +398,13 @@ footer nav ul {
 .deleteWorkPage{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 }
 
 .addWorkPage{
 	display: none;
 	flex-direction: column;
 	gap: 20px;
+	width: 90%;
 }
 
 .addWorkPage input[type='text'] {
@@ -412,29 +415,73 @@ footer nav ul {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+.addWorkPage select, select::picker(select){
+	appearance: base-select;
+}
+
 .addWorkPage select{
 	height: 50px;
 	width: 100%;
 	font-size: 1.2em;
+	align-items: center;
 	border: none;
+	border-radius: 0;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .addImg{
+	width: 100%;
+	background-color: #E8F1F6;
+}
+
+.addImg img{
+	height: 150px;
+}
+
+.addImgBtn{
+	font-family: 'Work Sans';
+	font-size: 1em;
+	color: #336699;
+	padding: 10px 30px;
+	background-color: rgba(0, 0, 0, 0.09);
+	border: none;
+	border-radius: 60px;
+}
+
+.photo{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%;
-	gap: 10px;
-	padding: 40px;
-	background-color: #E8F1F6;
+	gap: 7px;
+	padding: 20px;
+}
+
+.fa-image{
+	font-size: 60px;
+	opacity: 0.2;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+.addImg span{
+	color: #444444;
+	font-size: 0.7em;
 }
 
 .addImgForm{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
+}
+
+.content{
+	display: flex;
+	flex-direction: column;
+	padding: 15px ;
+	padding-bottom: 30px;
+}
+
+.addImgForm label{
+	margin: 2em 0 1em 0;
 }
 
 .filters {

@@ -16,6 +16,7 @@
 </head>
 
 <body>
+	<div id="background"></div>
 	<div id="editMode">
 		<i class="fa-solid fa-pen-to-square"> Mode édition</i>
 	</div>
@@ -48,11 +49,11 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<div id="background"></div>
+
 			<div class="modal">
 				<div class="topModal">
-					<button id="backBtn"><i class="fa-solid fa-arrow-left fa-2xl"></i></button>
 					<button id="close"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+					<button id="backBtn"><i class="fa-solid fa-arrow-left fa-2xl"></i></button>
 				</div>
 				<div class="deleteWorkPage">
 					<h2>Galerie photo</h2>
@@ -62,18 +63,24 @@
 				<div class="addWorkPage">
 					<h2>Ajout photo</h2>
 					<form class="addImgForm">
-						<div class="addImg">
-							<i class="fa-solid fa-image fa-2xl"></i>
-							<label for="addImg">+ Ajouter photo</label>
-							<input type="file" id="addImg" accept=".jpg, .png">
-							<span>jpg, png : 4mo max</span>
-						</div>
-						<label for="workTitle">Titre</label>
-						<input type="text" name="workTitle" id="workTitle">
-						<label for="workCategory">Catégorie</label>
-						<select name="workCategory" id="workCategory">
-						</select>
-						<input type="submit" value="Valider">
+						<div class="content">
+							<div class="addImg">
+								<div class="photo">
+									<i class="fa-regular fa-image fa-2xl"></i>
+									<button class="addImgBtn">
+										<label for="addImgBtn">+ Ajouter photo</label>
+										<input type="file" id="addImgBtn" accept="image/.jpg, image/.png" hidden>
+									</button>
+									<span>jpg, png : 4mo max</span>
+								</div>
+							</div>
+							<label for="workTitle">Titre</label>
+							<input type="text" name="workTitle" id="workTitle">
+							<label for="workCategory">Catégorie</label>
+							<select name="workCategory" id="workCategory">
+							</select>
+						</div>		
+						<input type="submit" value="Valider" id="sendBtn">
 					</form>
 				</div>
 			</div>

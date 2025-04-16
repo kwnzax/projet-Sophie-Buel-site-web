@@ -1,4 +1,3 @@
-/*const { add } = require("lodash");*/
 
 const token = localStorage.getItem('token');
 const selectCategory = document.getElementById('filters');
@@ -8,7 +7,6 @@ const gallery = document.getElementById('gallery');
 const edit = document.getElementById('edit');
 const editMode = document.getElementById('editMode');
 const btnFilter = document.getElementsByClassName('btn');
-const worksModal = document.getElementById('worksModal');
 const modal = document.querySelector('.modal');
 const modalWorks = document.querySelector('.modalWorks');
 const closeModal = document.getElementById('close');
@@ -17,7 +15,11 @@ const addWorkBtn = document.getElementById('addWorkBtn');
 const addWorkPage = document.querySelector('.addWorkPage');
 const deleteWorkPage = document.querySelector('.deleteWorkPage');
 const backBtn = document.getElementById('backBtn');
-const workCategory = document.getElementById('workCategory')
+const workCategory = document.getElementById('workCategory');
+const uploadWork = document.getElementById('addImgBtn');
+const addImg = document.querySelector('.addImg');
+const photo = document.querySelector('.photo');
+const sendBtn = document.getElementById('sendBtn');
 
 
 logout.addEventListener('click', () => {
@@ -72,13 +74,53 @@ function getFilters() {
 }
 
 
-function sendWork(){
+function sendWork() {
+    sendBtn.addEventListener('submit', event => {
+        event.preventDefault()
+
+        const formValue = e.target.elements;
+        const newWork = { 
+
+        }
+    })
+
+
     // Récupérer la soumission sur le bouton valider
     // Vérifier les infos (Présence d'une image, d'un titre, d'une catégorie et surtout le type de fichier et le poids)
     // SI OK = Envoyer les informations en POST sur l'api
     // OK = getWorks()
     // KO = Retourne un message d'erreur
 }
+
+
+
+uploadWork.addEventListener('change', previewFile);
+
+function previewFile() {
+
+    const fileExtentionRegex = /\.(jpe?g|png)$/i;
+
+    if (this.lenght === 0 || !fileExtentionRegex.test(this.files[0].name)) {
+        return;
+    }
+
+    const file = this.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+    fileReader.addEventListener('load', (event) =>
+        displayImage(event));
+    photo.style.display = 'none';
+}
+
+function displayImage(event) {
+    const image = document.createElement('img');
+    image.src = event.target.result;
+
+    addImg.appendChild(image);
+}
+
+
 
 function getWorks(categoryID = '0') {
 
@@ -132,12 +174,11 @@ function getWorks(categoryID = '0') {
 
 
 
-
 edit.addEventListener('click', (e) => {
     e.preventDefault();
     modal.style.display = 'flex';
     backgroundModal.style.display = 'flex';
-    backBtn.style.display = 'none'
+    backBtn.style.display = 'none';
 })
 
 closeModal.addEventListener('click', (e) => {
