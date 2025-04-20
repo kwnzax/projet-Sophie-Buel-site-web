@@ -18,7 +18,7 @@
 <body>
 	<div id="background"></div>
 	<div id="editMode">
-		<i class="fa-solid fa-pen-to-square"> Mode édition</i>
+		<i class="fa-solid fa-pen-to-square"> Mode Edition</i>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -69,17 +69,19 @@
 									<i class="fa-regular fa-image fa-2xl"></i>
 									<button class="addImgBtn">
 										<label for="addImgBtn">+ Ajouter photo</label>
-										<input type="file" id="addImgBtn" accept="image/.jpg, image/.png" hidden>
+										<input type="file" name="image" id="addImgBtn" accept="image/.jpg, image/.png"
+											hidden>
 									</button>
 									<span>jpg, png : 4mo max</span>
 								</div>
+								<div class="preview"></div>
 							</div>
 							<label for="workTitle">Titre</label>
-							<input type="text" name="workTitle" id="workTitle">
+							<input type="text" name="title" id="workTitle" required>
 							<label for="workCategory">Catégorie</label>
-							<select name="workCategory" id="workCategory">
+							<select name="category" id="workCategory" required>
 							</select>
-						</div>		
+						</div>
 						<input type="submit" value="Valider" id="sendBtn">
 					</form>
 				</div>

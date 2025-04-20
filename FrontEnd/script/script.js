@@ -1,12 +1,13 @@
 
 const token = localStorage.getItem('token');
-const selectCategory = document.getElementById('filters');
 const login = document.getElementById('login');
 const logout = document.getElementById('logout');
-const gallery = document.getElementById('gallery');
 const edit = document.getElementById('edit');
 const editMode = document.getElementById('editMode');
+const selectCategory = document.getElementById('filters');
+const gallery = document.getElementById('gallery');
 const btnFilter = document.getElementsByClassName('btn');
+
 const modal = document.querySelector('.modal');
 const modalWorks = document.querySelector('.modalWorks');
 const closeModal = document.getElementById('close');
@@ -18,7 +19,12 @@ const backBtn = document.getElementById('backBtn');
 const workCategory = document.getElementById('workCategory');
 const uploadWork = document.getElementById('addImgBtn');
 const addImg = document.querySelector('.addImg');
+const imgPreview = document.querySelector('.preview');
 const photo = document.querySelector('.photo');
+const addImgForm = document.querySelector('.addImgForm');
+const textInput = document.getElementById('workTitle');
+const selectInput = document.getElementById('workCategory');
+const fileInput = document.getElementById('addImgBtn');
 const sendBtn = document.getElementById('sendBtn');
 
 
@@ -29,19 +35,47 @@ logout.addEventListener('click', () => {
 
 
 if (token) {
-
     login.style.display = 'none';
     logout.style.display = 'block';
     edit.style.display = 'block';
-    editMode.style.display = 'block';
-
+    editMode.style.display = 'flex';
 } else {
     logout.style.display = 'none';
     login.style.display = 'block';
 }
 
+// affichage du mode edition et de la modal
+edit.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+    backgroundModal.style.display = 'flex';
+    backBtn.style.display = 'none';
+})
+
+closeModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'none';
+    backgroundModal.style.display = 'none';
+
+    addWorkPage.style.display = 'none';
+    deleteWorkPage.style.display = 'flex';
+})
+
+addWorkBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addWorkPage.style.display = 'flex';
+    deleteWorkPage.style.display = 'none';
+    backBtn.style.display = 'flex';
+})
+
+backBtn.addEventListener('click', () => {
+    addWorkPage.style.display = 'none';
+    deleteWorkPage.style.display = 'flex';
+    backBtn.style.display = 'none';
+})
 
 
+// récuperation des filtres
 function getFilters() {
     fetch('http://localhost:5678/api/categories')
         .then(response => {
@@ -73,55 +107,7 @@ function getFilters() {
         })
 }
 
-
-function sendWork() {
-    sendBtn.addEventListener('submit', event => {
-        event.preventDefault()
-
-        const formValue = e.target.elements;
-        const newWork = { 
-
-        }
-    })
-
-
-    // Récupérer la soumission sur le bouton valider
-    // Vérifier les infos (Présence d'une image, d'un titre, d'une catégorie et surtout le type de fichier et le poids)
-    // SI OK = Envoyer les informations en POST sur l'api
-    // OK = getWorks()
-    // KO = Retourne un message d'erreur
-}
-
-
-
-uploadWork.addEventListener('change', previewFile);
-
-function previewFile() {
-
-    const fileExtentionRegex = /\.(jpe?g|png)$/i;
-
-    if (this.lenght === 0 || !fileExtentionRegex.test(this.files[0].name)) {
-        return;
-    }
-
-    const file = this.files[0];
-    const fileReader = new FileReader();
-
-    fileReader.readAsDataURL(file);
-    fileReader.addEventListener('load', (event) =>
-        displayImage(event));
-    photo.style.display = 'none';
-}
-
-function displayImage(event) {
-    const image = document.createElement('img');
-    image.src = event.target.result;
-
-    addImg.appendChild(image);
-}
-
-
-
+// récuperation des projets + affichage
 function getWorks(categoryID = '0') {
 
     fetch('http://localhost:5678/api/works')
@@ -141,6 +127,7 @@ function getWorks(categoryID = '0') {
                     <h3>${works.title}</h3>
                 </div>
                 `
+                
                         })
 
             works.forEach(work => {
@@ -149,7 +136,7 @@ function getWorks(categoryID = '0') {
                 figure.setAttribute("class", "miniWork")
                 img.setAttribute("src", work.imageUrl)
                 img.setAttribute("alt", work.title);
-                img.style.width = "80px"
+                img.style.width = "80px";
 
 
                 const button = document.createElement('button');
@@ -163,6 +150,7 @@ function getWorks(categoryID = '0') {
 
                 modalWorks.appendChild(figure)
 
+
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
                     const workId = button.value;
@@ -172,34 +160,7 @@ function getWorks(categoryID = '0') {
         })
 }
 
-
-
-edit.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'flex';
-    backgroundModal.style.display = 'flex';
-    backBtn.style.display = 'none';
-})
-
-closeModal.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'none';
-    backgroundModal.style.display = 'none';
-})
-
-addWorkBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    addWorkPage.style.display = 'flex';
-    deleteWorkPage.style.display = 'none';
-    backBtn.style.display = 'flex';
-})
-
-backBtn.addEventListener('click', () => {
-    addWorkPage.style.display = 'none';
-    deleteWorkPage.style.display = 'flex';
-    backBtn.style.display = 'none';
-})
-
+// suppression des projets
 async function deleteWork(workId) {
 
     if (confirm('Are you sure you want to delete ?')) {
@@ -214,7 +175,7 @@ async function deleteWork(workId) {
             })
 
             if (response.ok) {
-                modal.innerHTML = ''
+                modalWorks.innerHTML = ''
                 getWorks();
             }
 
@@ -228,6 +189,91 @@ async function deleteWork(workId) {
         console.log('Operation cancelled');
     }
 }
+
+
+// vérification des fichiers reçu et affichage de l'apperçu
+uploadWork.addEventListener('change', previewFile);
+
+function previewFile() {
+
+    const fileExtentionRegex = /\.(jpe?g|png)$/i;
+
+    if (this.lenght === 0 || !fileExtentionRegex.test(this.files[0].name)) {
+        return;
+    }
+
+    if (this.size > 4 * 1024 * 1024) {
+        alert('Fichier trop volumineux.');
+        return;
+    }
+
+    const file = this.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+    fileReader.addEventListener('load', (event) =>
+        displayImage(event));
+    photo.style.display = 'none';
+}
+
+function displayImage(event) {
+    const image = document.createElement('img');
+    image.src = event.target.result;
+    
+
+    imgPreview.appendChild(image);
+}
+
+// vérification du remplissage du form
+function checkForm() {
+    const isTextFilled = textInput.value.trim() !== '';
+    const isSelectChosen = selectInput.value !== '';
+    const isFileChosen = fileInput.files.length > 0;
+
+    const isFormValid = isTextFilled && isSelectChosen && isFileChosen;
+    sendBtn.disabled = !isFormValid;
+}
+
+textInput.addEventListener('input', checkForm);
+selectInput.addEventListener('change', checkForm);
+fileInput.addEventListener('change', checkForm);
+
+
+// récuperation des données du form et création du nouveau projet
+addImgForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            modalWorks.innerHTML = ''
+            addWorkPage.style.display = 'none';
+            deleteWorkPage.style.display = 'block';
+            backBtn.style.display = 'none';
+            textInput.value = '';
+            fileInput.value ='';
+            photo.style.display = 'flex';
+            imgPreview.innerHTML = '';
+            getWorks();
+        }
+
+        const result = await response.json();
+        console.log("reponse de l'api :", result);
+
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+})
 
 
 getWorks();
