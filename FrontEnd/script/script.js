@@ -232,6 +232,15 @@ function checkForm() {
 
     const isFormValid = isTextFilled && isSelectChosen && isFileChosen;
     sendBtn.disabled = !isFormValid;
+    sendBtn.style.backgroundColor = '#1D6154';
+
+    if (isFormValid) {
+        sendBtn.style.backgroundColor = '#1D6154'; 
+        sendBtn.style.cursor = 'pointer';
+    } else {
+        sendBtn.style.backgroundColor = '#ccc'; 
+        sendBtn.style.cursor = 'not-allowed';
+    }
 }
 
 textInput.addEventListener('input', checkForm);

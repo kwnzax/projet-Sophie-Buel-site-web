@@ -404,6 +404,10 @@ footer nav ul {
 	border-radius: 60px;
 }
 
+#sendBtn {
+	background-color: #ccc;
+}
+
 .deleteWorkPage{
 	display: flex;
 	flex-direction: column;
