@@ -59,6 +59,10 @@ closeModal.addEventListener('click', (e) => {
 
     addWorkPage.style.display = 'none';
     deleteWorkPage.style.display = 'flex';
+    textInput.value = '';
+    fileInput.value = '';
+    photo.style.display = 'flex';
+    imgPreview.innerHTML = '';
 })
 
 addWorkBtn.addEventListener('click', (e) => {
@@ -72,6 +76,10 @@ backBtn.addEventListener('click', () => {
     addWorkPage.style.display = 'none';
     deleteWorkPage.style.display = 'flex';
     backBtn.style.display = 'none';
+    textInput.value = '';
+    fileInput.value = '';
+    photo.style.display = 'flex';
+    imgPreview.innerHTML = '';
 })
 
 
@@ -127,7 +135,7 @@ function getWorks(categoryID = '0') {
                     <h3>${works.title}</h3>
                 </div>
                 `
-                
+
                         })
 
             works.forEach(work => {
@@ -192,9 +200,12 @@ async function deleteWork(workId) {
 
 
 // vérification des fichiers reçu et affichage de l'apperçu
-uploadWork.addEventListener('change', previewFile);
+uploadWork.addEventListener('change', previewFile, (e) => {
+        e.preventDefault();
+});
 
 function previewFile() {
+
 
     const fileExtentionRegex = /\.(jpe?g|png)$/i;
 
@@ -219,7 +230,6 @@ function previewFile() {
 function displayImage(event) {
     const image = document.createElement('img');
     image.src = event.target.result;
-    
 
     imgPreview.appendChild(image);
 }
@@ -235,10 +245,10 @@ function checkForm() {
     sendBtn.style.backgroundColor = '#1D6154';
 
     if (isFormValid) {
-        sendBtn.style.backgroundColor = '#1D6154'; 
+        sendBtn.style.backgroundColor = '#1D6154';
         sendBtn.style.cursor = 'pointer';
     } else {
-        sendBtn.style.backgroundColor = '#ccc'; 
+        sendBtn.style.backgroundColor = '#ccc';
         sendBtn.style.cursor = 'not-allowed';
     }
 }
@@ -270,7 +280,7 @@ addImgForm.addEventListener('submit', async function (event) {
             deleteWorkPage.style.display = 'block';
             backBtn.style.display = 'none';
             textInput.value = '';
-            fileInput.value ='';
+            fileInput.value = '';
             photo.style.display = 'flex';
             imgPreview.innerHTML = '';
             getWorks();
