@@ -39,9 +39,11 @@ if (token) {
     logout.style.display = 'block';
     edit.style.display = 'block';
     editMode.style.display = 'flex';
+    selectCategory.style.display = 'none';
 } else {
     logout.style.display = 'none';
     login.style.display = 'block';
+    // window.location.href = 'index.html';
 }
 
 // affichage du mode edition et de la modal
@@ -70,6 +72,7 @@ addWorkBtn.addEventListener('click', (e) => {
     addWorkPage.style.display = 'flex';
     deleteWorkPage.style.display = 'none';
     backBtn.style.display = 'flex';
+    checkForm();
 })
 
 backBtn.addEventListener('click', () => {
@@ -80,30 +83,44 @@ backBtn.addEventListener('click', () => {
     fileInput.value = '';
     photo.style.display = 'flex';
     imgPreview.innerHTML = '';
+    selectInput.value = '0';
 })
 
 
 // récuperation des filtres
 function getFilters() {
+
     fetch('http://localhost:5678/api/categories')
         .then(response => {
             return response.json()
         }).then(categories => {
 
+            selectCategory.innerHTML = `<button class="btn" value="0">Tous</button>`;
             categories.forEach(category => {
                 const id = category.id;
                 const name = category.name
                 selectCategory.innerHTML += `<button class="btn" value="${id}">${name}</button>`;
             })
-
+            document.querySelector('.btn[value = "0"]').classList.add('active');
             for (const btn of btnFilter) {
                 btn.addEventListener('click', (e) => {
+
+                    //retirer class active de tous les btn
+                    for (const otherBtn of btnFilter) {
+                        otherBtn.classList.remove('active');
+                    }
+                    //ajt la class active au bouton cliqué
+                    e.target.classList.add('active');
 
                     const categoryID = e.target.value;
                     getWorks(categoryID);
                     modalWorks.innerHTML = '';
                 })
             }
+
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '0';
+            workCategory.appendChild(defaultOption);
 
             categories.forEach(categories => {
                 const option = document.createElement('option')
@@ -185,6 +202,8 @@ async function deleteWork(workId) {
             if (response.ok) {
                 modalWorks.innerHTML = ''
                 getWorks();
+                modal.style.display = 'none';
+                backgroundModal.style.display = 'none';
             }
 
         }
@@ -201,7 +220,7 @@ async function deleteWork(workId) {
 
 // vérification des fichiers reçu et affichage de l'apperçu
 uploadWork.addEventListener('change', previewFile, (e) => {
-        e.preventDefault();
+    e.preventDefault();
 });
 
 function previewFile() {
@@ -235,9 +254,10 @@ function displayImage(event) {
 }
 
 // vérification du remplissage du form
-function checkForm() {
+const checkForm = () => {
     const isTextFilled = textInput.value.trim() !== '';
-    const isSelectChosen = selectInput.value !== '';
+    const valueAsNumber = Number(selectInput.value);
+    const isSelectChosen = valueAsNumber !== 0;
     const isFileChosen = fileInput.files.length > 0;
 
     const isFormValid = isTextFilled && isSelectChosen && isFileChosen;
@@ -284,6 +304,8 @@ addImgForm.addEventListener('submit', async function (event) {
             photo.style.display = 'flex';
             imgPreview.innerHTML = '';
             getWorks();
+            modal.style.display = 'none';
+            backgroundModal.style.display = 'none';
         }
 
         const result = await response.json();
