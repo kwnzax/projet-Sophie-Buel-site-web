@@ -523,7 +523,7 @@ footer nav ul {
 	background-color: white;
 }
 
-.filters button:hover {
+.filters button.active {
 	background-color: #1D6154;
 	color: white;
 }
