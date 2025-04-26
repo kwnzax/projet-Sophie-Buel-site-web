@@ -43,7 +43,14 @@ if (token) {
 } else {
     logout.style.display = 'none';
     login.style.display = 'block';
-    // window.location.href = 'index.html';
+    // empecher l'acces a login.html si utilisateur connecté
+    login.addEventListener('click', (e) =>{
+        if (token){
+            e.preventDefault();
+            window.location.href = './index.html';
+        }
+    })
+
 }
 
 // affichage du mode edition et de la modal
